@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from "express";
 import cors from 'cors'
 import connectDb from './configs/mongodb.js';
+import userRouter from './routes/userRoute.js';
 
 //App config
 const PORT = process.env.PORT || 4000
@@ -12,10 +13,11 @@ await connectDb();
 app.get("/", (req, res)=>{
     res.send("API Working");
 });
+app.use("/api/user",userRouter)
 
 //initialize  middleware
-app.use(express.json());
-app.use(cors());
+app.use(express.json(), cors());
+// app.use(cors());
 await connectDb();
 
 
